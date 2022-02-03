@@ -1,9 +1,22 @@
-import { Component } from "react";
+import { Fragment } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./Home";
+import { Login } from "./Login";
+import { PageNotFound } from "./PageNotFound";
 
-class App extends Component {
-  render() {
-    return <div>Would You Rather</div>;
-  }
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Fragment>
+        <div>Would You Rather</div>
+      </Fragment>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
