@@ -1,14 +1,23 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
-import { Login } from "./Login";
+import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
+import { connect } from "react-redux";
+import { getUsers } from "../actions/users";
+import { Typography } from "@mui/material";
 
-const App = () => {
+const App = (props) => {
+  useEffect(() => {
+    props.dispatch(getUsers());
+  }, [props.authedUser, props.users, props.questions, props]);
+
   return (
     <BrowserRouter>
       <Fragment>
-        <div>Would You Rather</div>
+        <Typography p={4} variant="h3">
+          Would You Rather
+        </Typography>
       </Fragment>
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -19,4 +28,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect()(App);
