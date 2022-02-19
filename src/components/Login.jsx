@@ -11,15 +11,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { loginUser } from "../actions/authedUser";
-import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-  let navigate = useNavigate();
   const [user, setUser] = useState("");
   const logInUser = (event) => {
     event.preventDefault();
     props.dispatch(loginUser(user));
-    navigate("/");
   };
 
   return (
@@ -49,6 +46,7 @@ const Login = (props) => {
               variant="contained"
               disabled={user === ""}
               onClick={(e) => logInUser(e)}
+              color="primary"
             >
               Log In
             </Button>

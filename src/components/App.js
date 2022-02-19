@@ -1,31 +1,48 @@
-import { Fragment, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
 import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
+import { NewQuestion } from "./NewQuestion";
+import { Leaderboard } from "./Leaderboard";
+import { LoggedIn } from "./LoggedIn";
 import { connect } from "react-redux";
 import { getUsers } from "../actions/users";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 const App = (props) => {
+  let { dispatch, authedUser } = props;
   useEffect(() => {
-    props.dispatch(getUsers());
-  }, [props.authedUser, props.users, props.questions, props]);
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  console.log(authedUser);
 
   return (
-    <BrowserRouter>
-      <Fragment>
-        <Typography p={4} variant="h3">
-          Would You Rather
-        </Typography>
-      </Fragment>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h3">Would You Rather</Typography>
+      {authedUser !== null ? (
+        <>
+          <LoggedIn />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/add" element={<NewQuestion />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </>
+      ) : (
+        <Login />
+      )}
+    </Box>
   );
 };
 
-export default connect()(App);
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser,
+  };
+}
+
+export default connect(mapStateToProps)(App);
