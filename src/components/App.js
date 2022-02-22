@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
 import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
-import { NewQuestion } from "./NewQuestion";
+import NewQuestion from "./NewQuestion";
 import { Leaderboard } from "./Leaderboard";
 import LoggedIn from "./LoggedIn";
 import { connect } from "react-redux";

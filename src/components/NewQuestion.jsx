@@ -8,14 +8,17 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { handleAddQuestion } from "../actions/questions";
 
-export const NewQuestion = () => {
+const NewQuestion = (props) => {
   let navigate = useNavigate();
   const [optionOne, setOptionOne] = useState("");
   const [optionTwo, setOptionTwo] = useState("");
 
   const onSubmitQuestion = (e) => {
     e.preventDefault();
+    props.dispatch(handleAddQuestion(optionOne, optionTwo));
     console.log(`optionOne: ${optionOne}`);
     console.log(`optionTwo: ${optionTwo}`);
     setOptionOne("");
@@ -67,3 +70,5 @@ export const NewQuestion = () => {
     </Box>
   );
 };
+
+export default connect()(NewQuestion);
