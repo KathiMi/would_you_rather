@@ -5,25 +5,30 @@ import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
 import { NewQuestion } from "./NewQuestion";
 import { Leaderboard } from "./Leaderboard";
-import { LoggedIn } from "./LoggedIn";
+import LoggedIn from "./LoggedIn";
 import { connect } from "react-redux";
 import { getUsers } from "../actions/users";
 import { Typography, Box } from "@mui/material";
+import { logoutUser } from "../actions/authedUser";
 
 const App = (props) => {
-  let { dispatch, authedUser } = props;
+  let { dispatch, authedUser, users } = props;
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
+  console.log(users);
   console.log(authedUser);
 
   return (
     <Box sx={{ p: 4 }}>
       <Typography variant="h3">Would You Rather</Typography>
-      {authedUser !== null ? (
+      {authedUser !== null && users !== {} ? (
         <>
-          <LoggedIn />
+          <LoggedIn
+            authedUser={users[authedUser]}
+            onLogout={() => dispatch(logoutUser())}
+          />
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -39,9 +44,10 @@ const App = (props) => {
   );
 };
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser, users }) {
   return {
     authedUser,
+    users,
   };
 }
 

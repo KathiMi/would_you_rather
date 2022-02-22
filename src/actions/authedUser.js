@@ -12,3 +12,9 @@ export const loginUser = (id) => {
     dispatch(setAuthedUser(id));
   };
 };
+
+export const logoutUser = () => {
+  return (dispatch) => {
+    dispatch(setAuthedUser(null));
+  };
+};
