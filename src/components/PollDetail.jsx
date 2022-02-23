@@ -4,13 +4,21 @@ import AnsweredPollDetail from "./AnsweredPollDetail";
 import UnansweredPollDetail from "./UnansweredPollDetail";
 
 const PollDetail = (props) => {
+  const { authedUser, users, questions } = props;
   const questionId = useParams().questionId;
-  const answeredQuestionIds = Object.keys(
-    props.users[props.authedUser].answers
-  );
+  const answeredQuestionIds = Object.keys(users[authedUser].answers);
 
   if (answeredQuestionIds.includes(questionId)) {
-    return <AnsweredPollDetail questionId={questionId} />;
+    const user = users[questions[questionId].author];
+    return (
+      <AnsweredPollDetail
+        question={questions[questionId]}
+        name={user.name}
+        avatarUrl={user.avatarURL}
+        yourChoice={users[authedUser].answers[questionId]}
+        questionId={questionId}
+      />
+    );
   } else {
     return <UnansweredPollDetail questionId={questionId} />;
   }
