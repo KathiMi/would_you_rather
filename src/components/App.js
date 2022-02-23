@@ -11,6 +11,7 @@ import { getUsers } from "../actions/users";
 import { Typography, Box } from "@mui/material";
 import { logoutUser } from "../actions/authedUser";
 import { getQuestions } from "../actions/questions";
+import PollDetail from "./PollDetail";
 
 const App = (props) => {
   let { dispatch, authedUser, users } = props;
@@ -31,6 +32,7 @@ const App = (props) => {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
+            <Route path="questions/:questionId" element={<PollDetail />} />
             <Route path="/add" element={<NewQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<PageNotFound />} />

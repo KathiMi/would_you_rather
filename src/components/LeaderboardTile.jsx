@@ -10,6 +10,7 @@ const LeaderboardTile = (props) => {
       borderColor="lightgray"
       display="flex"
       marginY="16px"
+      borderRadius="20px"
     >
       <Box
         display="flex"

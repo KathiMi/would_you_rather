@@ -1,6 +1,27 @@
 import { Box, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { useState } from "react";
 import { connect } from "react-redux";
+import PollOverviewTile from "./PollOverviewTile";
+
+const pollOverview = (questions, users) => {
+  return (
+    <Box
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+      padding="24px"
+    >
+      {questions.map((q) => (
+        <PollOverviewTile
+          key={q.id}
+          name={users[q.author].name}
+          questionId={q.id}
+          optionOne={q.optionOne.text}
+        />
+      ))}
+    </Box>
+  );
+};
 
 const Home = (props) => {
   let { authedUser, users, questions, answeredQuestions, unansweredQuestions } =
@@ -9,13 +30,21 @@ const Home = (props) => {
   const [homeTab, setHomeTab] = useState("unanswered");
 
   const handleChange = (event, newValue) => {
+    if (newValue === null) return;
     setHomeTab(newValue);
   };
   console.log(answeredQuestions);
   console.log(unansweredQuestions);
+
+  answeredQuestions.sort((a, b) => {
+    return b.timestamp - a.timestamp;
+  });
+  unansweredQuestions.sort((a, b) => {
+    return b.timestamp - a.timestamp;
+  });
   return (
-    <Box width="1000px" border="solid" borderColor="lightgray">
-      <Box bgcolor="lightgray" height="40px" display="flex">
+    <Box width="800px" border="solid" borderColor="lightgray" marginTop="32px">
+      <Box bgcolor="lightgray" height="60px" display="flex" marginBottom="16px">
         <ToggleButtonGroup
           color="primary"
           value={homeTab}
@@ -23,28 +52,22 @@ const Home = (props) => {
           onChange={handleChange}
           fullWidth
         >
-          <ToggleButton value="unanswered">Unanswered Questions</ToggleButton>
-          <ToggleButton value="answered">Answered Questions</ToggleButton>
+          <ToggleButton
+            sx={{ fontWeight: "800", fontSize: "24px" }}
+            value="unanswered"
+          >
+            Unanswered Questions
+          </ToggleButton>
+          <ToggleButton
+            sx={{ fontWeight: "800", fontSize: "24px" }}
+            value="answered"
+          >
+            Answered Questions
+          </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      {homeTab === "unanswered" && (
-        <Box display="flex" justifyContent="center">
-          <ul>
-            {unansweredQuestions.map((q) => (
-              <li key={q.id}>{q.id}</li>
-            ))}
-          </ul>
-        </Box>
-      )}
-      {homeTab === "answered" && (
-        <Box display="flex" justifyContent="center">
-          <ul>
-            {answeredQuestions.map((q) => (
-              <li key={q.id}>{q.id}</li>
-            ))}
-          </ul>
-        </Box>
-      )}
+      {homeTab === "unanswered" && pollOverview(unansweredQuestions, users)}
+      {homeTab === "answered" && pollOverview(answeredQuestions, users)}
     </Box>
   );
 };
