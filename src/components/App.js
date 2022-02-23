@@ -4,7 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
 import NewQuestion from "./NewQuestion";
-import { Leaderboard } from "./Leaderboard";
+import Leaderboard from "./Leaderboard";
 import LoggedIn from "./LoggedIn";
 import { connect } from "react-redux";
 import { getUsers } from "../actions/users";

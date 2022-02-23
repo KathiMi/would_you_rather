@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import { Link } from "react-router-dom";
-import { AppBar, Button, Avatar } from "@material-ui/core";
+import { AppBar, Button, Avatar, Box, Tabs, Tab } from "@material-ui/core";
 import { Typography } from "@mui/material";
 
 const LoggedIn = (props) => {
