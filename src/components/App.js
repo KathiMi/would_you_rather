@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./Home";
+import Home from "./Home";
 import Login from "./Login";
 import { PageNotFound } from "./PageNotFound";
 import NewQuestion from "./NewQuestion";
@@ -10,15 +10,14 @@ import { connect } from "react-redux";
 import { getUsers } from "../actions/users";
 import { Typography, Box } from "@mui/material";
 import { logoutUser } from "../actions/authedUser";
+import { getQuestions } from "../actions/questions";
 
 const App = (props) => {
   let { dispatch, authedUser, users } = props;
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getQuestions());
   }, [dispatch]);
-
-  console.log(users);
-  console.log(authedUser);
 
   return (
     <Box sx={{ p: 4 }}>

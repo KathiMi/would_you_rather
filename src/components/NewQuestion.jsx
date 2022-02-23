@@ -19,8 +19,6 @@ const NewQuestion = (props) => {
   const onSubmitQuestion = (e) => {
     e.preventDefault();
     props.dispatch(handleAddQuestion(optionOne, optionTwo));
-    console.log(`optionOne: ${optionOne}`);
-    console.log(`optionTwo: ${optionTwo}`);
     setOptionOne("");
     setOptionTwo("");
     //navigate("/home");
