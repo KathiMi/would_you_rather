@@ -2,14 +2,16 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import AnsweredPollDetail from "./AnsweredPollDetail";
 import UnansweredPollDetail from "./UnansweredPollDetail";
+import PageNotFound from "./PageNotFound";
 
 const PollDetail = (props) => {
   const { authedUser, users, questions } = props;
   const questionId = useParams().questionId;
   const answeredQuestionIds = Object.keys(users[authedUser].answers);
-  const user = users[questions[questionId].author];
+  const questionIds = Object.keys(questions);
 
   if (answeredQuestionIds.includes(questionId)) {
+    const user = users[questions[questionId].author];
     return (
       <AnsweredPollDetail
         question={questions[questionId]}
@@ -19,7 +21,8 @@ const PollDetail = (props) => {
         questionId={questionId}
       />
     );
-  } else {
+  } else if (questionIds.includes(questionId)) {
+    const user = users[questions[questionId].author];
     return (
       <UnansweredPollDetail
         name={user.name}
@@ -29,6 +32,8 @@ const PollDetail = (props) => {
         optionTwoText={questions[questionId].optionTwo.text}
       />
     );
+  } else {
+    return <PageNotFound />;
   }
 };
 

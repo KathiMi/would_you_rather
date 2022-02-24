@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Grid,
   FormControl,
@@ -15,12 +15,13 @@ import { useState } from "react";
 import { loginUser } from "../actions/authedUser";
 
 const Login = (props) => {
+  const { state } = useLocation();
   let navigate = useNavigate();
   const [userId, setUser] = useState("");
   const logInUser = (event) => {
     event.preventDefault();
     props.dispatch(loginUser(userId));
-    navigate("/home");
+    navigate(state?.path || "/home");
   };
 
   return (
