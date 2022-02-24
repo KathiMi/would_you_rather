@@ -21,7 +21,7 @@ const NewQuestion = (props) => {
     props.dispatch(handleAddQuestion(optionOne, optionTwo));
     setOptionOne("");
     setOptionTwo("");
-    //navigate("/home");
+    navigate("/home");
   };
   return (
     <Box display="flex" flexDirection="column" width="50%">

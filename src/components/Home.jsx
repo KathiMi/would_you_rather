@@ -24,8 +24,7 @@ const pollOverview = (questions, users) => {
 };
 
 const Home = (props) => {
-  let { authedUser, users, questions, answeredQuestions, unansweredQuestions } =
-    props;
+  let { users, answeredQuestions, unansweredQuestions } = props;
 
   const [homeTab, setHomeTab] = useState("unanswered");
 
@@ -33,8 +32,6 @@ const Home = (props) => {
     if (newValue === null) return;
     setHomeTab(newValue);
   };
-  console.log(answeredQuestions);
-  console.log(unansweredQuestions);
 
   answeredQuestions.sort((a, b) => {
     return b.timestamp - a.timestamp;
@@ -82,9 +79,7 @@ function mapStateToProps({ authedUser, users, questions }) {
       : unansweredQuestions.push(questions[questionId]);
   });
   return {
-    authedUser,
     users,
-    questions,
     answeredQuestions,
     unansweredQuestions,
   };

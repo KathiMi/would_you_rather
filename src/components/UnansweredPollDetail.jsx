@@ -1,9 +1,14 @@
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Box } from "@material-ui/core";
-import { Typography, Chip } from "@mui/material";
+import { Box, Button } from "@material-ui/core";
+import { Typography } from "@mui/material";
+import { handleAnswerQuestion } from "../actions/questions";
 
 const UnansweredPollDetail = (props) => {
-  console.log(props.questionId);
+  const choose = (option) => {
+    props.dispatch(handleAnswerQuestion(props.questionId, option));
+  };
+
   return (
     <Box
       width="1000px"
@@ -15,20 +20,58 @@ const UnansweredPollDetail = (props) => {
       flexDirection="column"
     >
       <Box height="40px" padding="8px" bgcolor="#3f51b550">
-        <Typography variant="h6">Asked by {props.name}</Typography>
+        <Typography variant="h6">{props.name} asks</Typography>
       </Box>
       <Box display="flex" flexDirection="row">
         <Box flex={1} display="flex">
-          <img src="https://picsum.photos/id/237/200/300" alt="profile" />
+          <img src={props.avatarUrl} alt="profile" />
         </Box>
         <Box display="flex" flexDirection="column" flex={2}>
-          <Typography fontWeight="800" padding="8px" variant="h5">
-            Results:
+          <Typography
+            fontWeight="800"
+            padding="8px"
+            paddingBottom="24px"
+            variant="h5"
+          >
+            Would you rather...
           </Typography>
+          <Box
+            display="flex"
+            flexDirection="column"
+            padding="8px"
+            paddingRight="24px"
+            justifyContent="center"
+          >
+            <Button
+              onClick={() => choose("optionOne")}
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              {props.optionOneText}
+            </Button>
+            <Box mt="24px" />
+            <Button
+              onClick={() => choose("optionTwo")}
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              {props.optionTwoText}
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default UnansweredPollDetail;
+UnansweredPollDetail.propTypes = {
+  name: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
+  questionId: PropTypes.string.isRequired,
+  optionOneText: PropTypes.string.isRequired,
+  optionTwoText: PropTypes.string.isRequired,
+};
+
+export default connect()(UnansweredPollDetail);

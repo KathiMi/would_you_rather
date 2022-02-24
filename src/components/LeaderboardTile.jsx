@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
-import { Typography } from "@mui/material";
+import { Typography, Avatar } from "@mui/material";
 
 const LeaderboardTile = (props) => {
   return (
     <Box
       width="1000px"
       border="solid"
-      borderColor="lightgray"
+      borderColor="#3f51b570"
       display="flex"
       marginY="16px"
       borderRadius="20px"
@@ -28,9 +28,18 @@ const LeaderboardTile = (props) => {
         alignItems="cemter"
         flex={3}
         borderLeft="solid"
-        borderColor="lightgray"
+        borderColor="#3f51b570"
       >
-        <Typography variant="h2">{props.userName}</Typography>
+        <Box display="flex">
+          <Avatar
+            alt={props.userName}
+            src={props.avatarUrl}
+            sx={{ marginRight: "12px" }}
+          />
+          <Typography fontWeight="800" variant="h4">
+            {props.userName}
+          </Typography>
+        </Box>
         <Typography
           paddingTop="32px"
           variant="h4"
@@ -46,7 +55,7 @@ const LeaderboardTile = (props) => {
         justifyContent="center"
         padding="24px"
         borderLeft="solid"
-        borderColor="lightgray"
+        borderColor="#3f51b570"
         flex={1}
       >
         <Box
@@ -65,6 +74,7 @@ const LeaderboardTile = (props) => {
 
 LeaderboardTile.propTypes = {
   userName: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
   answeredQuestions: PropTypes.number.isRequired,
   createdQuestions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,

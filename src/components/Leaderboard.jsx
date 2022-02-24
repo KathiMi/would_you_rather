@@ -7,6 +7,7 @@ const Leaderboard = (props) => {
       answeredQuestions: Object.values(user.answers).length,
       createdQuestions: user.questions.length,
       userName: user.name,
+      avatarUrl: user.avatarURL,
       score: Object.values(user.answers).length + user.questions.length,
     }))
     .sort((a, b) => {
@@ -18,6 +19,7 @@ const Leaderboard = (props) => {
       key={`${user.userName}_${index}`}
       place={`${index + 1}.`}
       userName={user.userName}
+      avatarUrl={user.avatarUrl}
       answeredQuestions={user.answeredQuestions}
       createdQuestions={user.createdQuestions}
       score={user.score}
